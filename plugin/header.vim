@@ -1,5 +1,6 @@
 " Commands for vim user
 " Author Info Headers
+command! AutoAddHeader call header#auto_add_header(0, 0, 0)
 command! AddHeader call header#add_header(0, 0, 0)
 command! AddMinHeader call header#add_header(1, 0, 0)
 " License Headers
@@ -12,6 +13,6 @@ command! AddMPLLicense call header#add_header(2, 'mpl', 0)
 
 " Set default global values
 " if !exists('g:header_auto_add_header') || g:header_auto_add_header == 1
-autocmd BufNewFile * call header#add_header(0, 0, 1)
-autocmd BufWritePre * silent! :AddHeader " Update date when saving buffer
+autocmd BufNewFile * call header#auto_add_header(0, 0, 1)
+autocmd BufWritePre * silent! :AutoAddHeader " Update date when saving buffer
 " endif

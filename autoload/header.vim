@@ -308,6 +308,14 @@ fun s:add_header()
     if b:block_comment
         call append(i, b:comment_end)
     endif
+    " leave blank lines
+    let local_i = 0
+    while local_i < g:header_lines_after
+        call append(i, '')
+        let i += 1
+        let local_i += 1
+    endwhile
+
     call setpos(".", save_pos)
 endfun
 
@@ -673,11 +681,13 @@ endfun
 "   0: Normal Header
 "   1: Minified Header
 "   2: License Header (also uses license parameter)
-fun header#add_header(type, license, silent)
-    if g:header_auto_add_header != 1
-        return
+fun header#auto_add_header(type, license, silent)
+    if g:header_auto_add_header == 1
+        call header#add_header(a:type, a:license, a:silent)
     endif
+endfun
 
+fun header#add_header(type, license, silent)
     call s:set_props()
 
     " If filetype is available, add header else inform user
