@@ -674,6 +674,10 @@ endfun
 "   1: Minified Header
 "   2: License Header (also uses license parameter)
 fun header#add_header(type, license, silent)
+    if g:header_auto_add_header != 1
+        return
+    endif
+
     call s:set_props()
 
     " If filetype is available, add header else inform user
